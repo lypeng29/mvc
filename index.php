@@ -20,13 +20,16 @@ require('function.php');
 $config = require('config.php');
 
 //获取控制器与方法名
-$controller_name = !empty($_GET['c']) ? trim($_GET['c']) : $config['DEFAULT_CONTROLLER'];
-$method = !empty($_GET['a']) ? trim($_GET['a']) : $config['DEFAULT_ACTION'];
+if(empty($config['DEFAULT_CONTROLLER_NAME']) || empty($config['DEFAULT_CONTROLLER_NAME'])){
+	die('Config file error,DEFAULT_CONTROLLER_NAME or DEFAULT_CONTROLLER_NAME is empty!');
+}
+$controller_name = !empty($_GET[$config['DEFAULT_CONTROLLER_NAME']]) ? trim($_GET[$config['DEFAULT_CONTROLLER_NAME']]) : $config['DEFAULT_CONTROLLER'];
+$action_name = !empty($_GET[$config['DEFAULT_ACTION_NAME']]) ? trim($_GET[$config['DEFAULT_ACTION_NAME']]) : $config['DEFAULT_ACTION'];
 
 //加载控制器文件
-$c_path = 'controller/'.$controller_name.'.php';
-if (file_exists($c_path)) {
-	require($c_path);
+$controller_path = 'controller/'.$controller_name.'.php';
+if (file_exists($controller_path)) {
+	require($controller_path);
 }else{
 	die('Controller file not exist!');
 }
@@ -37,6 +40,6 @@ if (file_exists($c_path)) {
 //执行控制器方法
 $controller = "app\controller\\".$controller_name;
 $instance = new $controller;
-$instance->$method();
+$instance->$action_name();
 
 ?>
