@@ -11,12 +11,10 @@ return array(
 	'DB_USER'		=> 'root',
 	'DB_PASS'		=> 'root',
 	'DB_PORT'		=> '3306',
-	'DB_NAME'		=> 'test',
-	'DB_CHARSET'	=> 'utf-8',
-	//core
-	'DEFAULT_CONTROLLER_NAME'	=> 'c',
-	'DEFAULT_ACTION_NAME'	=> 'a',
-	'DEFAULT_CONTROLLER'	=> 'Index',
+	'DB_NAME'		=> 'project',
+	// 'DEFAULT_CONTROLLER_NAME'	=> 'c',
+	// 'DEFAULT_ACTION_NAME'	=> 'a',
+	'DEFAULT_CONTROLLER'	=> 'Itemb',
 	'DEFAULT_ACTION'	=> 'index',
 );
 ?>
