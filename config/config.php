@@ -14,7 +14,7 @@ return array(
 	'DB_NAME'		=> 'project',
 	// 'DEFAULT_CONTROLLER_NAME'	=> 'c',
 	// 'DEFAULT_ACTION_NAME'	=> 'a',
-	'DEFAULT_CONTROLLER'	=> 'Itemb',
+	'DEFAULT_CONTROLLER'	=> 'Item',
 	'DEFAULT_ACTION'	=> 'index',
 );
 ?>

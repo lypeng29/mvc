@@ -1,25 +1,35 @@
 <?php
 namespace app\controller;
 use fastphp\base\Controller;
-use app\model\Itemb;
+use app\model\ItemModel;
 class Item extends Controller
 {
 	public function index()
 	{
         $keyword = isset($_GET['keyword']) ? $_GET['keyword'] : '';
 
-        if ($keyword) {
-            $items = (new Itemb)->search($keyword);
-        } else {
-            // 查询所有内容，并按倒序排列输出
-            // where()方法可不传入参数，或者省略
-            $items = (new Itemb)->where()->order(['id DESC'])->fetchAll();
-        }
-
-        $this->assign('title', '全部条目');
-        $this->assign('keyword', $keyword);
-        $this->assign('items', $items);
-        $this->render();
+        // if ($keyword) {
+        //     $items = (new ItemModel)->search($keyword);
+        // } else {
+        //     // 查询所有内容，并按倒序排列输出
+        //     // where()方法可不传入参数，或者省略
+        //     // $items = (new ItemModel)->where()->order(['id DESC'])->fetchAll();
+            // $items = (new Model)->start();
+            // $items = (new Model)->init();
+            // $db = (new Model)->init();
+        $m = new ItemModel();
+        $items=$m->getlist();
+            // $items = $db->getAll();
+            // echo (new ItemModel)->query_num();
+            var_dump($items);
+        // }
+        // new ItemModel();
+        // (new ItemModel)->search('5');
+        // echo(DB_HOST);
+        // $this->assign('title', '全部条目');
+        // $this->assign('keyword', $keyword);
+        // $this->assign('items', $items);
+        // $this->render();
 
 		// $id = !empty($_GET['id']) ? trim($_GET['id']) : '1';
 
@@ -38,7 +48,7 @@ class Item extends Controller
     public function detail($id)
     {
         // 通过?占位符传入$id参数
-        $item = (new Itemb)->where(["id = ?"], [$id])->fetch();
+        $item = (new ItemModel)->where(["id = ?"], [$id])->fetch();
 
         $this->assign('title', '条目详情');
         $this->assign('item', $item);
@@ -49,7 +59,7 @@ class Item extends Controller
     public function add()
     {
         $data['item_name'] = $_POST['value'];
-        $count = (new Itemb)->add($data);
+        $count = (new ItemModel)->add($data);
 
         $this->assign('title', '添加成功');
         $this->assign('count', $count);
@@ -62,7 +72,7 @@ class Item extends Controller
         $item = array();
         if ($id) {
             // 通过名称占位符传入参数
-            $item = (new Itemb)->where(["id = :id"], [':id' => $id])->fetch();
+            $item = (new ItemModel)->where(["id = :id"], [':id' => $id])->fetch();
         }
 
         $this->assign('title', '管理条目');
@@ -74,7 +84,7 @@ class Item extends Controller
     public function update()
     {
         $data = array('id' => $_POST['id'], 'item_name' => $_POST['value']);
-        $count = (new Itemb)->where(['id = :id'], [':id' => $data['id']])->update($data);
+        $count = (new ItemModel)->where(['id = :id'], [':id' => $data['id']])->update($data);
 
         $this->assign('title', '修改成功');
         $this->assign('count', $count);
@@ -84,7 +94,7 @@ class Item extends Controller
     // 删除记录，测试框架DB记录删除（Delete）
     public function delete($id = null)
     {
-        $count = (new Itemb)->delete($id);
+        $count = (new ItemModel)->delete($id);
 
         $this->assign('title', '删除成功');
         $this->assign('count', $count);
