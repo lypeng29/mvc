@@ -1,10 +1,9 @@
 <?php
 namespace fastphp\base;
-use fastphp\helper\Dbt;
-class Model extends Dbt
+use fastphp\helper\Db;
+class Model extends Db
 {
-    public $result;
-    public $db;
+    public $_db;
     public function __construct()
     {
         $config=array(
@@ -13,17 +12,16 @@ class Model extends Dbt
             'pass'       => DB_PASS,
             'port'       => DB_PORT,
             'db'         => DB_NAME,
-            'table'      => 'item',
             'charset'    => 'utf8',
         );
-        $this->db = Dbt::getIntance($config);
+        $this->_db = Db::getIntance($config);
         // return $this;
     }
     public function init(){
-        return $this->db;
+        return $this->_db;
     }
     public function start(){
-        $this->result = $this->db->getAll();
+        $this->result = $this->_db->select('item');
         return $this->result;
     }
 }
