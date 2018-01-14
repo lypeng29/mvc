@@ -2,17 +2,18 @@
 namespace app\controller;
 use fastphp\base\Controller;
 use fastphp\base\Model;
+use app\model\ItemModel;
 class Item extends Controller
 {
     // private $db;
     public function index()
     {
-        $this->db = (new Model)->init();
+        $this->db = new ItemModel;
         $keyword = isset($_GET['keyword']) ? $_GET['keyword'] : '';
         if ($keyword) {
             $items = $this->db->sql("select * from item where `item_name` like '%$keyword%'");
         } else {
-            $items = $this->db->select('item');
+            $items = $this->db->getlist();
         }
         $this->_view->assign('title', '全部条目');
         $this->assign('keyword', $keyword);
@@ -22,7 +23,7 @@ class Item extends Controller
     // 查看单条记录详情
     public function detail($id)
     {
-        $item = (new Model)->init()->find('item','id='.$id);
+        $item = (new ItemModel)->find('item','id='.$id);
         $this->assign('title', '条目详情');
         $this->assign('item', $item);
         $this->render();
@@ -32,7 +33,7 @@ class Item extends Controller
     public function add()
     {
         $data['item_name'] = $_POST['value'];
-        $count = (new Model)->init()->insert('item',$data);
+        $count = (new ItemModel)->insert('item',$data);
         $this->assign('title', '添加成功');
         $this->assign('count', $count);
         $this->render();
@@ -43,7 +44,7 @@ class Item extends Controller
     {
         $item = array();
         if ($id) {
-           $item = (new Model)->init()->find('item','id='.$id);
+           $item = (new ItemModel)->find('item','id='.$id);
         }
         $this->assign('title', '管理条目');
         $this->assign('item', $item);
@@ -54,7 +55,7 @@ class Item extends Controller
     public function update()
     {
         $data = array('id' => $_POST['id'], 'item_name' => $_POST['value']);
-        $count = (new Model)->init()->update('item',$data,'id='.$_POST['id']);
+        $count = (new ItemModel)->update('item',$data,'id='.$_POST['id']);
         $this->assign('title', '修改成功');
         $this->assign('count', $count);
         $this->render();
@@ -63,7 +64,7 @@ class Item extends Controller
     // 删除记录
     public function delete($id = null)
     {
-        $count = (new Model)->init()->delete('item','id='.$id);
+        $count = (new ItemModel)->delete('item','id='.$id);
         $this->assign('title', '删除成功');
         $this->assign('count', $count);
         $this->render();

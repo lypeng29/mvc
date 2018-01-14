@@ -1,15 +1,15 @@
 <?php
 namespace fastphp\helper;
 class Db{
-	private static $dbcon=false;
-	private $host;
-	private $port;
-	private $user;
-	private $pass;
-	private $db;
-	private $charset;
-	private $link;
-	private function __construct($config=array()){
+	// public static $dbcon=false;
+	public $host;
+	public $port;
+	public $user;
+	public $pass;
+	public $db;
+	public $charset;
+	public $link;
+	public function connect($config=array()){
 		$this->host = $config['host'] ? $config['host'] : 'localhost';
 		$this->port = $config['port'] ? $config['port'] : '3306';
 		$this->user = $config['user'] ? $config['user'] : 'root';
@@ -24,7 +24,7 @@ class Db{
 		$this->db_charset();
 	}
 	//连接数据库
-	private function db_connect(){
+	public function db_connect(){
 		$this->link=mysqli_connect($this->host.':'.$this->port,$this->user,$this->pass);
 		if(!$this->link){
 			echo "database connect error.<br>";
@@ -34,24 +34,24 @@ class Db{
 		}
 	}
 	//设置字符集
-	private function db_charset(){
+	public function db_charset(){
 		mysqli_query($this->link,"set names {$this->charset}");
 	}
 	//选择数据库
-	private function db_usedb(){
+	public function db_usedb(){
 		mysqli_query($this->link,"use {$this->db}");
 	}
 	//私有的克隆
-	private function __clone(){
+	public function __clone(){
 		die('clone is not allowed');
 	}
 	//公用的静态方法
-	public static function getIntance($config){
-		if(self::$dbcon==false){
-			self::$dbcon=new self($config);
-		}
-		return self::$dbcon;
-	}
+	// public static function getIntance($config){
+	// 	if(self::$dbcon==false){
+	// 		self::$dbcon=new self($config);
+	// 	}
+	// 	return self::$dbcon;
+	// }
 	//执行sql语句的方法
 	public function query($sql){
 		$res=mysqli_query($this->link,$sql);

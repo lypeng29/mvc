@@ -3,7 +3,7 @@ namespace fastphp\base;
 use fastphp\helper\Db;
 class Model extends Db
 {
-    public $_db;
+    // public $_db;
     public function __construct()
     {
         $config=array(
@@ -14,14 +14,19 @@ class Model extends Db
             'db'         => DB_NAME,
             'charset'    => 'utf8',
         );
-        $this->_db = Db::getIntance($config);
+        // new Db($config);
+        $this->connect($config);
+        // $this->_db = Db::getIntance($config);
         // return $this;
     }
-    public function init(){
-        return $this->_db;
+    function __destruct() {
+    
     }
-    public function start(){
-        $this->result = $this->_db->select('item');
-        return $this->result;
-    }
+    // public function init(){
+    //     return $this->_db;
+    // }
+    // public function start(){
+    //     $this->result = $this->_db->select('item');
+    //     return $this->result;
+    // }
 }
