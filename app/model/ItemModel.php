@@ -18,12 +18,13 @@ class ItemModel extends Model
      * 这里就是 item 表
      * @var string
      */
-    // public function __construct()
-    // {
-    //     // echo '99';
-    //     $this->model = new Model();
-    //     $this->db = $this->model->init();
-    // }
+    public function __construct()
+    {
+        // echo '99';
+        $this->item = new Model();
+        var_dump($this->db);
+        // $this->db = $this->model->init();
+    }
     // /**
     //  * 搜索功能，因为Sql父类里面没有现成的like搜索，
     //  * 所以需要自己写SQL语句，对数据库的操作应该都放
@@ -43,7 +44,7 @@ class ItemModel extends Model
     }
     public function getlist(){
         // $result = $this->model->start();
-        $result = $this->select('item');
+        $result = $this->item->select('item','','*');
         return $result;
     }
 }

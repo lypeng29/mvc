@@ -1,19 +1,35 @@
 <?php
 namespace app\controller;
 use fastphp\base\Controller;
-use fastphp\base\Model;
+// use fastphp\base\Model;
 use app\model\ItemModel;
 class Item extends Controller
 {
-    // private $db;
+    private $db;
     public function index()
     {
+        // echo DB_HOST;
+        $this->model = new itemModel;
+        // var_dump($this->db);
+
+        $items = $this->model->getlist();
+        // $items = $this->db->select('item');
+        
+        $this->_view->assign('title', '全部条目');
+        $this->assign('keyword', '');
+        $this->assign('items', $items);
+        $this->render();
+	}    
+    public function index2()
+    {
         $this->db = new ItemModel;
+        var_dump($this->db);
+
         $keyword = isset($_GET['keyword']) ? $_GET['keyword'] : '';
         if ($keyword) {
             $items = $this->db->sql("select * from item where `item_name` like '%$keyword%'");
         } else {
-            $items = $this->db->getlist();
+            $items = $this->db->select('item');
         }
         $this->_view->assign('title', '全部条目');
         $this->assign('keyword', $keyword);
