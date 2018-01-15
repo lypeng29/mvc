@@ -4,7 +4,7 @@
 * @author lan
 */
 
-namespace Common\Api;
+namespace fastphp\helper;
 
 /**
 * 接口辅助类，包括基本的接口函数和错误

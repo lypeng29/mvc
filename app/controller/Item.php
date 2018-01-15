@@ -1,40 +1,24 @@
 <?php
 namespace app\controller;
 use fastphp\base\Controller;
-// use fastphp\base\Model;
 use app\model\ItemModel;
+use fastphp\helper\ApiHelper;
 class Item extends Controller
 {
-    private $db;
     public function index()
     {
-        // echo DB_HOST;
-        $this->model = new itemModel;
-        // var_dump($this->db);
-
-        $items = $this->model->getlist();
-        // $items = $this->db->select('item');
-        
-        $this->_view->assign('title', '全部条目');
-        $this->assign('keyword', '');
-        $this->assign('items', $items);
-        $this->render();
-	}    
-    public function index2()
-    {
-        $this->db = new ItemModel;
-        var_dump($this->db);
-
+        $db = new ItemModel;
         $keyword = isset($_GET['keyword']) ? $_GET['keyword'] : '';
         if ($keyword) {
-            $items = $this->db->sql("select * from item where `item_name` like '%$keyword%'");
+            $items = $db->sql("select * from item where `item_name` like '%$keyword%'");
         } else {
-            $items = $this->db->select('item');
+            $items = $db->select('item');
         }
-        $this->_view->assign('title', '全部条目');
-        $this->assign('keyword', $keyword);
-        $this->assign('items', $items);
-        $this->render();
+        ApiHelper::output($items);
+        // $this->_view->assign('title', '全部条目');
+        // $this->assign('keyword', $keyword);
+        // $this->assign('items', $items);
+        // $this->render();
 	}
     // 查看单条记录详情
     public function detail($id)

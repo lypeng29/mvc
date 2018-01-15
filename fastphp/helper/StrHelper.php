@@ -8,9 +8,9 @@
 // +----------------------------------------------------------------------
 // | Author: yunwuxin <448901948@qq.com>
 // +----------------------------------------------------------------------
-namespace think\helper;
+namespace fastphp\helper;
 
-class Str
+class StrHelper
 {
 
     protected static $snakeCache = [];

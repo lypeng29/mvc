@@ -2,14 +2,11 @@
 namespace app\model;
 
 use fastphp\base\Model;
-// use fastphp\helper\Db;
 
 /**
  * 用户Model
  */
 class ItemModel extends Model
-// class ItemModel extends Model
-// class ItemModel
 {
     private $model;
     /**
@@ -20,10 +17,8 @@ class ItemModel extends Model
      */
     public function __construct()
     {
-        // echo '99';
+        parent::__construct();
         $this->item = new Model();
-        var_dump($this->db);
-        // $this->db = $this->model->init();
     }
     // /**
     //  * 搜索功能，因为Sql父类里面没有现成的like搜索，
@@ -44,7 +39,7 @@ class ItemModel extends Model
     }
     public function getlist(){
         // $result = $this->model->start();
-        $result = $this->item->select('item','','*');
+        $result = $this->item->select('item');
         return $result;
     }
 }

@@ -1,6 +1,6 @@
 <?php
 namespace fastphp\helper;
-class Db{
+class DbHelper{
 	/**
 	 * 数据库类，提供链接数据库，执行sql语句，返回实例
 	 */
@@ -54,30 +54,6 @@ class Db{
 			self::$dbcon=new self($config);
 		}
 		return self::$dbcon;
-	}
-	//执行sql语句的方法
-	public function query($sql){
-		$res=mysqli_query($this->link,$sql);
-		if(!$res){
-			echo "sql execute fail<br>";
-			echo "error code:".mysqli_errno($this->link)."<br>";
-			echo "error message:".mysqli_error($this->link)."<br>";
-		}
-		return $res;
-	}
-	//获得最后一条记录id
-	public function getInsertid(){
-		return mysqli_insert_id($this->link);
-	}
-
-	//获取一条记录,前置条件通过资源获取一条记录
-	public function getFormSource($query,$type="assoc"){
-		if(!in_array($type,array("assoc","array","row")))
-		{
-			die("mysqli_query error");
-		}
-		$funcname="mysqli_fetch_".$type;
-		return $funcname($query);
 	}
 }
 ?>
