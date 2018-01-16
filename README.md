@@ -23,7 +23,7 @@ Apache==>.htaccess
 
 nginx==>nginx.conf
 location / {
-	try_
+    try_files $uri $uri/ /index.php$args;
 }
 
 ## 单例模式测试
