@@ -86,7 +86,7 @@ class Model extends DbHelper
 		}
 		return $list;
 	}	
-	//获取多条数据，二维数组
+	//执行SQL，返回结果数组
 	public function sql($sql){
 		$query=$this->query($sql);
 		$list=array();
@@ -95,6 +95,11 @@ class Model extends DbHelper
 		}
 		return $list;
 	}
+	//执行SQL，返回受影响行数
+	public function execute($sql){
+		$this->query($sql);
+		return $this->getAffectRows();
+	}	
 	/**
 	* 定义添加数据的方法
 	* @param string $table 表名
