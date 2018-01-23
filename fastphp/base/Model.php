@@ -38,7 +38,10 @@ class Model extends DbHelper
 	private function getInsertid(){
 		return mysqli_insert_id($this->db->link);
 	}
-
+	//返回受影响的行数
+	public function getAffectRows(){
+		return mysqli_affected_rows($this->db->link);
+	}
 	//获取一条记录,前置条件通过资源获取一条记录
 	private function getFormSource($query,$type="assoc"){
 		if(!in_array($type,array("assoc","array","row")))

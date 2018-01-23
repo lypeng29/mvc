@@ -50,8 +50,7 @@ class Fastphp
         $this->unregisterGlobals();
         //设置数据库配置
         $this->setDbConfig();
-        //加载函数文件
-        require_once(CORE_PATH.'/function.php');
+        
         $this->route();
     }
 

@@ -3,7 +3,7 @@
 * 文件上传辅助类
 * @author lan
 */
-namespace Common\Api;
+namespace fastphp\helper;
 
 /**
 * 文件上传辅助类，多文件上传和单文件上传均可
@@ -229,7 +229,7 @@ class UploadHelper
 			$filePath = '.'.ltrim($filePath, '.'); //fix path
 
 			if(!file_exists($filePath) || !is_file($filePath)){
-				E("图像文件不存在");
+				die("图像文件不存在");
 			}
 
 			$width1 = intval($width1) > 0 ? intval($width1) : 800;

@@ -11,11 +11,14 @@ define('APP_PATH', __DIR__ . '/');
 // 开启调试模式
 define('APP_DEBUG', true);
 
+//加载函数文件
+require(APP_PATH.'fastphp/function.php');
 // 加载框架文件
 require(APP_PATH . 'fastphp/Fastphp.php');
+//加载vendor文件
+require(APP_PATH.'vendor/autoload.php');
 
 // 加载配置文件
 $config = require(APP_PATH . 'config/config.php');
-
 // 实例化框架类
 (new fastphp\Fastphp($config))->run();
