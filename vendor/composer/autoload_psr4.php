@@ -7,4 +7,5 @@ $baseDir = dirname($vendorDir);
 
 return array(
     'QL\\' => array($vendorDir . '/jaeger/querylist'),
+    'PHPMailer\\PHPMailer\\' => array($vendorDir . '/phpmailer/phpmailer/src'),
 );

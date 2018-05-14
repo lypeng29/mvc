@@ -11,10 +11,8 @@ return array(
 	'DB_USER'		=> 'root',
 	'DB_PASS'		=> 'root',
 	'DB_PORT'		=> '3306',
-	'DB_NAME'		=> 'project',
-	// 'DEFAULT_CONTROLLER_NAME'	=> 'c',
-	// 'DEFAULT_ACTION_NAME'	=> 'a',
-	'DEFAULT_CONTROLLER'	=> 'Item',
+	'DB_NAME'		=> 'awesome',
+	'DEFAULT_CONTROLLER'	=> 'Index',
 	'DEFAULT_ACTION'	=> 'index',
 );
 ?>

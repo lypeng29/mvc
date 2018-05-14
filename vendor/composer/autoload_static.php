@@ -11,12 +11,20 @@ class ComposerStaticInitec17dadfa04a535b8aaa16fde3d04a28
         array (
             'QL\\' => 3,
         ),
+        'P' => 
+        array (
+            'PHPMailer\\PHPMailer\\' => 20,
+        ),
     );
 
     public static $prefixDirsPsr4 = array (
         'QL\\' => 
         array (
             0 => __DIR__ . '/..' . '/jaeger/querylist',
+        ),
+        'PHPMailer\\PHPMailer\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/phpmailer/phpmailer/src',
         ),
     );
 
