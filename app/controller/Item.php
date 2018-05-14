@@ -3,28 +3,25 @@ namespace app\controller;
 use fastphp\base\Controller;
 use app\model\ItemModel;
 use fastphp\helper\ApiHelper;
-// use fastphp\helper\UploadHelper;
 class Item extends Controller
 {
     public function index()
     {
-        // $db = new ItemModel;
-        // $keyword = isset($_GET['keyword']) ? $_GET['keyword'] : '';
-        // if ($keyword) {
-        //     $items = $db->sql("select * from item where `item_name` like '%$keyword%'");
-        // } else {
-        //     // $items = $db->select('item');
-        //     $items = $db->getlist();
-        // }
-        self::eee();
+        $db = new ItemModel;
+        $keyword = isset($_GET['keyword']) ? $_GET['keyword'] : '';
+        if ($keyword) {
+            echo '5566';
+            $items = $db->sql("select * from item where `item_name` like '%$keyword%'");
+        } else {
+            echo '7788';
+            // $items = $db->select('item');
+            $items = $db->getlist();
+        }
         // ApiHelper::output($items);
-        // $this->_view->assign('title', '全部条目');
-        // $this->assign('keyword', $keyword);
-        // $this->assign('items', $items);
-        // $this->render();
-    }
-    public function eee(){
-        echo 'hello';
+        $this->_view->assign('title', '全部条目');
+        $this->assign('keyword', $keyword);
+        $this->assign('items', $items);
+        $this->render();
     }
     // 查看单条记录详情
     public function detail($id)
@@ -39,10 +36,6 @@ class Item extends Controller
     public function add()
     {
         $data['item_name'] = $_POST['value'];
-        // $up = new UploadHelper;
-        // $img = UploadHelper::upload('item_img');
-        // var_dump($img);
-        // exit();
         $insertId = (new ItemModel)->insert('item',$data);
         $count = (new ItemModel)->getAffectRows();
         $this->assign('title', '添加成功');

@@ -11,7 +11,7 @@ namespace fastphp\helper;
 * 类中方法均为静态方法
 * @api 调用示例
 *
-*      use Common\Api\ApiHelper;
+*      use fastphp\helper\ApiHelper;
 *      ApiHelper::output(101, '密码错误');
 */
 class ApiHelper

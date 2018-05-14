@@ -9,12 +9,11 @@ namespace fastphp\helper;
 * 文件上传辅助类，多文件上传和单文件上传均可
 * 类中方法均为静态方法
 * @api 调用示例
-*
-*      use Common\Api\UploadHelper;
-*      $upload = UploadHelper::upload('public'); //上传文件
-*      $thumb = UploadHelper::thumb("/Upload/public/img/origin/3c/f8/96/3cf8968946e1864bc6d221e7577291eb.png", '/Upload/public/img/large/3c/f8/96/3cf8968946e1864bc6d221e7577291eb.png'); //生成缩略图
-*	   UploadHelper::batchThumb($filePath); //批量生成缩略图（大中小三个尺寸）
-*      UploadHelper::getError(); //上传失败、生成缩略图失败原因
+* use fastphp\helper\UploadHelper;
+* $upload = UploadHelper::upload('public'); //上传文件
+* $thumb = UploadHelper::thumb("/Upload/public/img/origin/3c/f8/96/3cf8968946e1864bc6d221e7577291eb.png", '/Upload/public/img/large/3c/f8/96/3cf8968946e1864bc6d221e7577291eb.png'); //生成缩略图
+* UploadHelper::batchThumb($filePath); //批量生成缩略图（大中小三个尺寸）
+* UploadHelper::getError(); //上传失败、生成缩略图失败原因
 */
 class UploadHelper
 {

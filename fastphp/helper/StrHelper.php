@@ -8,6 +8,13 @@
 // +----------------------------------------------------------------------
 // | Author: yunwuxin <448901948@qq.com>
 // +----------------------------------------------------------------------
+/**
+ * 具体使用：
+ * use fastphp\helper\StrHelper;
+ * if(StrHelper::startsWith('https://',$str)){
+ *    return true;
+ * }
+ */
 namespace fastphp\helper;
 
 class StrHelper

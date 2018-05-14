@@ -1,4 +1,8 @@
 <?php
+/**
+ * @author lypeng
+ * dbhelper类 mysqli方式，只提供链接数据库，具体实现由model.php基类提供
+ */
 namespace fastphp\helper;
 class DbHelper{
 	/**
