@@ -12,7 +12,10 @@ return array(
 	'DB_PASS'		=> 'root',
 	'DB_PORT'		=> '3306',
 	'DB_NAME'		=> 'mvc',
+	//system
 	'DEFAULT_CONTROLLER'	=> 'Index',
 	'DEFAULT_ACTION'	=> 'index',
+	//mail
+	'MAIL_NAME'		=> '893371810@qq.com',
 );
 ?>

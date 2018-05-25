@@ -3,13 +3,26 @@ namespace app\controller;
 use fastphp\base\Controller;
 use app\model\ItemModel;
 use fastphp\helper\ApiHelper;
+use fastphp\helper\CacheHelper;
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
 class Index extends Controller
 {
     public function index(){
         echo 'hello world!';
+        var_dump($_GET);
+        var_dump($_POST);
+        var_dump($_SERVER);
     }
+
+    public function mycache(){
+        
+        $ca = new CacheHelper(20,'cache/');
+        // $ca->put('nihao','888');
+        $ni = $ca->get('nihao');
+        echo $ni;
+    }
+
     public function sendemail()
     {
         $mail = new PHPMailer(true);                              // Passing `true` enables exceptions
