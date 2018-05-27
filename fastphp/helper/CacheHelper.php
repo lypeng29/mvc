@@ -42,8 +42,11 @@ class CacheHelper {
                 return unserialize($data);//return the values
             }
             else return false; 
+        }else{
+            //DELETE FILE
+            unlink($filename);
+            return false;//was expired you need to create new 
         } 
-        else return false;//was expired you need to create new 
     } 
 } 
 ?> 
