@@ -21,10 +21,10 @@ class Index extends Controller
     }
 
     public function myupload(){
-        // var_dump($_GET);
-        var_dump($_POST);
-        // var_dump($_SERVER);      
-        var_dump($_FILES);      
+        // var_dump($_FILES);
+        $upload = new UploadHelper('file');
+        $res = $upload->upload_file();  
+        var_dump($res);
     }
 
     public function myuphtml(){
@@ -37,7 +37,7 @@ class Index extends Controller
             </head>
             <body>
             <form name="up" action="/index/myupload" method="post" enctype="multipart/form-data">
-            <input type="file" name="thumb" />
+            <input type="file" name="file" />
             <input type="submit">
             </form>
             </body>
