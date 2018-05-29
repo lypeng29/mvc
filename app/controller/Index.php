@@ -20,6 +20,11 @@ class Index extends Controller
         var_dump($_SERVER);
     }
 
+    public function test(){
+        echo 'test';
+        echo isset($_GET['id']) ? intval($_GET['id']) : 555;
+    }
+
     public function myupload(){
         // var_dump($_FILES);
         $upload = new UploadHelper('file');

@@ -78,8 +78,11 @@ class Model extends DbHelper
 		if(empty($where)){
 			$query=$this->query("select $field from $table");
 		}else{
+			// $sql = "select $field from $table where $where";
+			// exit($sql);
 			$query=$this->query("select $field from $table where $where");
 		}
+
 		$list=array();
 		while ($r=$this->getFormSource($query)) {
 			$list[]=$r;
@@ -111,9 +114,6 @@ class Model extends DbHelper
 		$key_str='';
 		$v_str='';
 		foreach($data as $key=>$v){
-			if(empty($v)){
-				die("error");
-			}
 			//$key的值是每一个字段s一个字段所对应的值
 			$key_str.=$key.',';
 			$v_str.="'$v',";
@@ -134,8 +134,9 @@ class Model extends DbHelper
 	public function delete($table,$where){
 		if(is_array($where)){
 			foreach ($where as $key => $val) {
-				$condition = $key.'='.$val;
+				$condition[] = $key.'='.$val;
 			}
+			$condition = implode(' and ',$condition);
 		} else {
 			$condition = $where;
 		}

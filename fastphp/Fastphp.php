@@ -60,8 +60,10 @@ class Fastphp
         $controllerName = $this->config['DEFAULT_CONTROLLER'];
         $actionName = $this->config['DEFAULT_ACTION'];
         $param = array();
+        
+        //兼容命令行
+        $url = !empty($_SERVER['REQUEST_URI']) ? $_SERVER['REQUEST_URI'] : (!empty($_SERVER['argv']) ? $_SERVER['argv']['1'] : '');
 
-        $url = $_SERVER['REQUEST_URI'];
         // 清除?之后的内容
         $position = strpos($url, '?');
         $url = $position === false ? $url : substr($url, 0, $position);

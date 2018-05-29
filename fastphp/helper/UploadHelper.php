@@ -95,8 +95,8 @@ class UploadHelper {
  
 	//建立以年月日为文件夹名
 	function creat_mulu(){
-		$this->creatFolder("./uploads/".date('Ymd',time()));  
-		return "uploads/".date('Ymd',time());
+		$this->creatFolder("./uploads/".date('Ym',time()));  
+		return "uploads/".date('Ym',time());
 	}
  
 	//生成的文件名
