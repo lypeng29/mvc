@@ -5,18 +5,17 @@
 namespace app\controller;
 use fastphp\base\Controller;
 use app\model\QueueModel;
-
+use app\model\ItemModel;
 class Queue extends Controller
 {
     public function __construct(){
         $this->_db = new QueueModel();
+        $this->item = new ItemModel();
     }
     public function index(){
         // $this->_send();//发送消息类任务
-        $s = time();
         $this->_url();//执行URL类任务
         $this->_clear();//清除类任务
-        echo time()-$s;
     }
     //新增示例
     public function addPush(){
@@ -51,6 +50,8 @@ class Queue extends Controller
     private function _url(){
         $queue_list = $this->_db->queuePull('url');
         if(!empty($queue_list)){
+            $stime = date('Y-m-d H:i:s',time());
+            $this->item->insert('item',array('item_name'=>$stime));
             foreach($queue_list as $v){
                 switch ($v['sub_type']){
                     case 'get':
@@ -61,6 +62,8 @@ class Queue extends Controller
                         break;
                 }
             }
+            $etime = date('Y-m-d H:i:s',time());
+            $this->item->insert('item',array('item_name'=>$etime));
         }
         return true;
     }
