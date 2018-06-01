@@ -71,7 +71,7 @@ eof;
             $mail->Password = 'lrxjnkhbjnwmbdeh';                           // SMTP password
             $mail->SMTPSecure = 'ssl';                            // Enable TLS encryption, `ssl` also accepted
             $mail->Port = 465;                                    // TCP port to connect to
-
+            $mail->CharSet = 'UTF-8';
             //Recipients
             $mail->setFrom('893371810@qq.com', 'Mailer');
             $mail->addAddress('893371810@qq.com', 'Joe User');     // Add a recipient
@@ -87,9 +87,10 @@ eof;
             //Content
             $mail->isHTML(true);                                  // Set email format to HTML
             $mail->Subject = 'Here is the subject';
-            $mail->Body    = 'This is the HTML message body <b>in bold!</b>';
-            $mail->AltBody = 'This is the body in plain text for non-HTML mail clients';
-
+            // $mail->Body    = 'This is the HTML message body <b>in bold!</b>';
+            // $mail->AltBody = 'This is the body in plain text for non-HTML mail clients';
+            $rootPath = dirname(__FILE__);
+            $mail->msgHTML(file_get_contents($rootPath.'/../view/mail.html'));
             $mail->send();
             echo 'Message has been sent';
         } catch (Exception $e) {
