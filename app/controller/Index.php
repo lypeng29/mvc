@@ -5,6 +5,7 @@ use app\model\ItemModel;
 use fastphp\helper\ApiHelper;
 use fastphp\helper\CacheHelper;
 use fastphp\helper\UploadHelper;
+// use fastphp\helper\MyRedisHelper;
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
 class Index extends Controller
@@ -25,6 +26,20 @@ class Index extends Controller
         echo isset($_GET['id']) ? intval($_GET['id']) : 555;
     }
 
+    public function myredis(){
+        $redis = new \Redis();
+        $redis->connect('127.0.0.1', 6379);
+        
+        var_dump($redis->info());
+
+        if(empty($redis->get('user_id'))){
+            echo 'user_id is null <hr/>';
+            $redis->set('user_id', 102, 10);
+        }
+        echo 'user_id is '.$redis->get('user_id');
+        echo '<hr/>';
+        echo 'expire is '.$redis->ttl('user_id');
+    }
     public function myupload(){
         // var_dump($_FILES);
         $upload = new UploadHelper('file');
