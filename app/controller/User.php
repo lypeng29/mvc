@@ -8,6 +8,9 @@ use app\model\UserModel;
 use app\model\QueueModel;
 class User extends Controller
 {
+    public function index(){
+        $user = new UserModel();
+    }
     public function upstatus()
     {
         //执行具体任务

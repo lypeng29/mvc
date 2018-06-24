@@ -18,7 +18,7 @@ class ItemModel extends Model
     public function __construct()
     {
         parent::__construct();
-        $this->item = new Model();
+        $this->model = new Model();
     }
     // /**
     //  * 搜索功能，因为Sql父类里面没有现成的like搜索，
@@ -38,8 +38,7 @@ class ItemModel extends Model
         // return $sth->fetchAll();
     }
     public function getlist(){
-        // $result = $this->model->start();
-        $result = $this->item->select('item');
+        $result = $this->model->select();
         return $result;
     }
 }

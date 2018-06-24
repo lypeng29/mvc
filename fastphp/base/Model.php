@@ -8,9 +8,17 @@ class Model extends DbHelper
      */
     // 当前数据库操作对象
     public $db               =   null;
+    private $tableName       =   null;
     public function __construct()
     {
+        $name = substr(get_class($this),0,-strlen('Model'));
+        if ( $pos = strrpos($name,'\\') ) {//有命名空间
+            $this->tableName = strtolower(substr($name,$pos+1));
+        }else{
+            $this->tableName = strtolower($name);
+        }		
 		$this->db();
+
     }
     private function db() {
         $config=array(
@@ -28,9 +36,10 @@ class Model extends DbHelper
 	private function query($sql){
 		$res=mysqli_query($this->db->link,$sql);
 		if(!$res){
-			echo "sql execute fail<br>";
-			echo "error code:".mysqli_errno($this->db->link)."<br>";
-			echo "error message:".mysqli_error($this->db->link)."<br>";
+			echo "sql execute fail".PHP_EOL;
+			echo "sql is: # ".$sql.' # '.PHP_EOL;
+			echo "error code:".mysqli_errno($this->db->link).PHP_EOL;
+			echo "error message:".mysqli_error($this->db->link).PHP_EOL;
 		}
 		return $res;
 	}
@@ -61,11 +70,11 @@ class Model extends DbHelper
 	 */
 	//================================================
 	//获取数据，一维数组
-	public function find($table,$where='',$field='*'){
+	public function find($field='*',$where=''){
 		if(empty($where)){
-			$query=$this->query("select $field from $table limit 1");
+			$query=$this->query("select $field from $this->tableName limit 1");
 		}else{
-			$query=$this->query("select $field from $table where $where limit 1");
+			$query=$this->query("select $field from $this->tableName where $where limit 1");
 		}
 		$list=array();
 		while ($r=$this->getFormSource($query)) {
@@ -74,13 +83,11 @@ class Model extends DbHelper
 		return $list;
 	}	
 	//获取数据，二维数组
-	public function select($table,$where='',$field='*'){
+	public function select($field='*',$where=''){
 		if(empty($where)){
-			$query=$this->query("select $field from $table");
+			$query=$this->query("select $field from $this->tableName");
 		}else{
-			// $sql = "select $field from $table where $where";
-			// exit($sql);
-			$query=$this->query("select $field from $table where $where");
+			$query=$this->query("select $field from $this->tableName where $where");
 		}
 
 		$list=array();
@@ -109,7 +116,7 @@ class Model extends DbHelper
 	* @param string orarray $data [数据]
 	* @return int 最新添加的id
 	*/
-	public function insert($table,$data){
+	public function insert($data){
 		//遍历数组，得到每一个字段和字段的值
 		$key_str='';
 		$v_str='';
@@ -121,7 +128,7 @@ class Model extends DbHelper
 		$key_str=trim($key_str,',');
 		$v_str=trim($v_str,',');
 		//判断数据是否为空
-		$sql="insert into $table ($key_str) values ($v_str)";
+		$sql="insert into $this->tableName ($key_str) values ($v_str)";
 		$this->query($sql);
 		//返回上一次增加操做产生ID值
 		return $this->getInsertid();
@@ -131,7 +138,7 @@ class Model extends DbHelper
 	* @param1 $table, $where=array('id'=>'1') 表名 条件
 	* @return 受影响的行数
 	*/
-	public function delete($table,$where){
+	public function delete($where){
 		if(is_array($where)){
 			foreach ($where as $key => $val) {
 				$condition[] = $key.'='.$val;
@@ -140,7 +147,7 @@ class Model extends DbHelper
 		} else {
 			$condition = $where;
 		}
-		$sql = "delete from $table where $condition";
+		$sql = "delete from $this->tableName where $condition";
 		$this->query($sql);
 		//返回受影响的行数
 		return mysqli_affected_rows($this->db->link);
@@ -152,7 +159,7 @@ class Model extends DbHelper
 	* @param [type] $where [条件]
 	* @return [type]
 	*/
-	public function update($table,$data,$where){
+	public function update($data,$where){
 		//遍历数组，得到每一个字段和字段的值
 		$str='';
 		foreach($data as $key=>$v){
@@ -160,7 +167,7 @@ class Model extends DbHelper
 		}
 		$str=rtrim($str,',');
 		//修改SQL语句
-		$sql="update $table set $str where $where";
+		$sql="update $this->tableName set $str where $where";
 		$this->query($sql);
 		//返回受影响的行数
 		return mysqli_affected_rows($this->db->link);

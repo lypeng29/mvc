@@ -8,16 +8,17 @@ class Item extends Controller
     public function index()
     {
         $db = new ItemModel;
-        $keyword = isset($_GET['keyword']) ? $_GET['keyword'] : '';
-        if ($keyword) {
-            echo '5566';
-            $items = $db->sql("select * from item where `item_name` like '%$keyword%'");
-        } else {
-            echo '7788';
-            // $items = $db->select('item');
-            $items = $db->getlist();
-        }
-        // ApiHelper::output($items);
+        // $keyword = isset($_GET['keyword']) ? $_GET['keyword'] : '';
+        // if ($keyword) {
+        //     echo '5566';
+        //     $items = $db->sql("select * from item where `item_name` like '%$keyword%'");
+        // } else {
+        //     echo '7788';
+        //     // $items = $db->select('item');
+            $items = (new ItemModel)->getlist();
+        // }
+
+        ApiHelper::output($items);
         $this->_view->assign('title', '全部条目');
         $this->assign('keyword', $keyword);
         $this->assign('items', $items);
