@@ -40,7 +40,8 @@ class Fastphp
         //     include 'classes/' . $class . '.class.php';
         // });
 
-
+        //常量定义
+        $this->define();
         //检测开发环境，是否开启错误，display_errors
         $this->setReporting();
         //执行stripslashes，删除反斜杠\
@@ -53,7 +54,19 @@ class Fastphp
         
         $this->route();
     }
-
+    /**
+     * 定义框架常量
+     * @author ushe
+     * @version 0.1
+     */
+    private static function define()
+    {
+        define("DIR_DATA", DIR_ROOT . "/data");
+        define("DIR_LOG", DIR_DATA . "/log");
+        define("DIR_CACHE", DIR_DATA . "/cache");
+        // define("DIR_PUBLIC", DIR_ROOT . "/public");
+        define("DIR_UPLOAD", DIR_ROOT . "/uploads");
+    }
     // 路由处理
     public function route()
     {
@@ -180,7 +193,7 @@ class Fastphp
             $file = $classMap[$className];
         } elseif (strpos($className, '\\') !== false) {
             // 包含应用（application目录）文件
-            $file = APP_PATH . str_replace('\\', '/', $className) . '.php';
+            $file = DIR_ROOT . str_replace('\\', '/', $className) . '.php';
             if (!is_file($file)) {
                 return;
             }

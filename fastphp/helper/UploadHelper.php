@@ -115,7 +115,7 @@ class UploadHelper {
  
 	//生成缩略图
 	//最大宽：120，高：120
-	function create_simg($img_w,$img_h){
+	function resize($img_w,$img_h){
 		$name=$this->set_name();
 		$folder=$this->creat_mulu();
 		$new_name="./".$folder."/s_".$name;      

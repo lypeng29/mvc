@@ -6,9 +6,14 @@
 1. 采用命名空间
 2. 控制器类名后面不跟Controller，直接Index.php,首字母大写
 3. 模板使用php与html混写方式，后缀.php
-4. 采用mysqli,不是pdo(mysql扩展比较老了，放弃了，不怎么喜欢pdo的写法，还是更熟练mysqli方式)
-5. composer增加vendor扩展(目前有phpmailer，querylist)
-6. 增加各种Helper类，目前有db,str，time，api
+4. 采用mysqli,不是pdo(mysql扩展比较老了，放弃了，对于pdo的取舍,完全是个人爱好，不怎么喜欢pdo的写法，还是更熟练mysqli方式)
+5. composer安装扩展到vendor(目前有phpmailer，querylist)
+6. 增加各种Helper类，目前有db,str，time，api，upload，cache
+
+7. 依赖注入  /user/get/1 
+    http://www.mvc.com/user/add POST data
+    http://www.mvc.com/user/get?id=1 GET param=value&... // or /user/get/1
+8. 模型类参考tp，自动获取表名，或者自定义表名
 
 ## 去掉index.php配置
 Apache重写
