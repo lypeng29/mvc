@@ -8,37 +8,21 @@ use fastphp\base\Model;
  */
 class ItemModel extends Model
 {
-    private $model;
-    /**
-     * 自定义当前模型操作的数据库表名称，
-     * 如果不指定，默认为类名称的小写字符串，
-     * 这里就是 item 表
-     * @var string
-     */
-    public function __construct()
-    {
-        parent::__construct();
-        $this->model = new Model();
-    }
-    // /**
-    //  * 搜索功能，因为Sql父类里面没有现成的like搜索，
-    //  * 所以需要自己写SQL语句，对数据库的操作应该都放
-    //  * 在Model里面，然后提供给Controller直接调用
-    //  * @param $title string 查询的关键词
-    //  * @return array 返回的数据
-    //  */
-    public function search($keyword)
-    {
-        // echo DB_HOST;
-        // $sql = "select * from `$this->table` where `item_name` like :keyword";
-        // $sth = Db::pdo()->prepare($sql);
-        // $sth = $this->formatParam($sth, [':keyword' => "%$keyword%"]);
-        // $sth->execute();
 
-        // return $sth->fetchAll();
+    //可以调用$this->select,find,sql,execute,insert,update,delete方法
+    // function __construct(){
+    //     $this->tableName = 'itemb'; // 不包含前缀表名
+    //     // $this->trueTableName = 'dp_itemb'; // 真实表名，如果不指定默认为模型名称
+    //     parent::__construct();//继承父类初始化需要放在最后，否则上面的定义是无效的
+    // }
+
+    public function search($keyword){
+        return $this->sql("select * from itemb where `item_name` like '%$keyword%'");
     }
     public function getlist(){
-        $result = $this->model->select();
-        return $result;
+        return $this->select('*','id<10');
+    }
+    public function add($data){
+        return $this->insert($data,false);//第二个参数默认true，返回insertid,false返回插入行数
     }
 }

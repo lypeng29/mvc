@@ -12,6 +12,7 @@ return array(
 	'DB_PASS'		=> 'root',
 	'DB_PORT'		=> '3306',
 	'DB_NAME'		=> 'mvc',
+	'DB_PREFIX'		=> '',
 	//system
 	'DEFAULT_CONTROLLER'	=> 'Index',
 	'DEFAULT_ACTION'	=> 'index',

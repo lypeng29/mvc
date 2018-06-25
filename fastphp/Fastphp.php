@@ -166,6 +166,7 @@ class Fastphp
             define('DB_USER', $this->config['DB_USER']);
             define('DB_PASS', $this->config['DB_PASS']);
             define('DB_PORT', $this->config['DB_PORT']);
+            define('DB_PREFIX', $this->config['DB_PREFIX']);
         }
     }
 

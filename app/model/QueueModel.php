@@ -7,16 +7,10 @@ use fastphp\base\Model;
  */
 class QueueModel extends Model
 {
-    private $model;
     private $main_type = '';
     private $sub_type = '';
-    public function __construct(){
-        parent::__construct();
-        $this->model = new Model();
-    }
-    //
     public function getmaxid(){
-        $info = $this->model->find('queue','id>0 order by id desc');
+        $info = $this->find('*','id>0 order by id desc');
         return $info['id'];
     }
     /*
@@ -36,7 +30,7 @@ class QueueModel extends Model
      */
     public function setlock($data) {
         $update['is_lock'] = 1;
-        return $this->model->update('queue',$update,'id='.$data['id']);
+        return $this->update($update,'id='.$data['id']);
     }
 
     /*
@@ -58,7 +52,7 @@ class QueueModel extends Model
         //$data['exe_times'] = 0;//被执行次数
         //$data['status'] = 0;//执行状态
         $data['add_time'] = time();
-        return $this->model->insert('queue',$data);
+        return $this->insert($data);
     }
 
     /*
@@ -66,7 +60,7 @@ class QueueModel extends Model
      */
     public function queuePull($main_type = 'url', $limit = 100){
         $condition = 'main_type="'. $main_type .'" and is_lock=0 and status in(0,1) and exe_times < max_times';
-        $queue_list = $this->model->select('queue',$condition.' order by add_time asc limit '.$limit);
+        $queue_list = $this->select('*',$condition.' order by add_time asc limit '.$limit);
         return $queue_list;
     }
 
@@ -74,7 +68,7 @@ class QueueModel extends Model
     public function clear(){
         $condition['is_lock'] = 0;
         $condition['status'] = 2;
-        return $this->model->delete('queue',$condition);
+        return $this->delete($condition);
     }
 
     //更新
@@ -96,6 +90,6 @@ class QueueModel extends Model
             }
         }
         $update .= 'run_time='.time();
-        return $this->model->execute("update queue set ".$update." where id=".$data['id']);
+        return $this->execute("update queue set ".$update." where id=".$data['id']);
     }
 }

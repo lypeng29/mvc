@@ -8,24 +8,12 @@ use fastphp\helper\TimeHelper;
  */
 class FinanceModel extends Model
 {
-    private $model;
-    /**
-     * 自定义当前模型操作的数据库表名称，
-     * 如果不指定，默认为类名称的小写字符串，
-     * 这里就是 item 表
-     * @var string
-     */
-    public function __construct()
-    {
-        parent::__construct();
-        $this->model = new Model();
-    }
     public function getcategory($tid)
     {
         if($tid != 2){
             $tid = 1;
         }
-        $result = $this->model->select('category','tid='.$tid,'cname as label,id as value');
+        $result = $this->sql('select cname as label,id as value from category where tid='.$tid);
         return $result;
     }
     public function add($arr){
@@ -34,7 +22,7 @@ class FinanceModel extends Model
         $data['money'] = round(floatval($arr['money']),2);
         $data['addtime'] = intval($arr['addtime']);
         $data['mark'] = strval($arr['mark']);        
-        $result = $this->model->insert('finance',$data);
+        $result = $this->insert($data);
         return $result;   
     }
     public function getlist($type){
@@ -44,7 +32,7 @@ class FinanceModel extends Model
         }
         $sql = "select f.type,f.money,f.addtime,f.mark,c.cname from finance as f,category as c where c.id=f.cid ".$condition." order by f.id desc";
         //多表联查
-        $result = $this->model->sql($sql);
+        $result = $this->sql($sql);
         foreach ($result as $key => $value) {
             $result[$key]['ftime'] = mdate($value['addtime']);
             $result[$key]['atime'] = date('Y-m-d H:i:s',$value['addtime']);
@@ -61,7 +49,7 @@ class FinanceModel extends Model
             $where .= ' and addtime > '.$arr['0'].' and addtime < '.$arr['1'];
         }
         $sql = "select sum(money) as s from finance where $where";
-        $result = $this->model->sql($sql);
+        $result = $this->sql($sql);
         return $result['0']['s'];
     }
 }
