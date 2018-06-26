@@ -11,12 +11,12 @@ defined('CORE_PATH') or define('CORE_PATH', __DIR__);
 class Fastphp
 {
     // 配置内容
-    protected $config = [];
+    // protected $config = [];
 
-    public function __construct($config)
-    {
-        $this->config = $config;
-    }
+    // public function __construct($config)
+    // {
+    //     $this->config = $config;
+    // }
 
     // 运行程序
     public function run()
@@ -49,8 +49,6 @@ class Fastphp
 
         //删除全局类似$GLOBAL['_SESSION']变量,我还没用过这种类型变量
         $this->unregisterGlobals();
-        //设置数据库配置
-        $this->setDbConfig();
         
         $this->route();
     }
@@ -70,8 +68,8 @@ class Fastphp
     // 路由处理
     public function route()
     {
-        $controllerName = $this->config['DEFAULT_CONTROLLER'];
-        $actionName = $this->config['DEFAULT_ACTION'];
+        $controllerName = C('DEFAULT_CONTROLLER');
+        $actionName = C('DEFAULT_ACTION');
         $param = array();
         
         //兼容命令行
@@ -167,19 +165,6 @@ class Fastphp
                     }
                 }
             }
-        }
-    }
-
-    // 配置数据库信息
-    public function setDbConfig()
-    {
-        if ($this->config) {
-            define('DB_HOST', $this->config['DB_HOST']);
-            define('DB_NAME', $this->config['DB_NAME']);
-            define('DB_USER', $this->config['DB_USER']);
-            define('DB_PASS', $this->config['DB_PASS']);
-            define('DB_PORT', $this->config['DB_PORT']);
-            define('DB_PREFIX', $this->config['DB_PREFIX']);
         }
     }
 

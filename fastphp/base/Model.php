@@ -41,7 +41,7 @@ class Model extends DbHelper
         }elseif('' != $tablePrefix) {
 			$this->tablePrefix = $tablePrefix;
         }elseif(!isset($this->tablePrefix)){
-			$this->tablePrefix = DB_PREFIX;
+			$this->tablePrefix = C('DB_PREFIX');
 		}
 		$this->trueTableName = $this->getTableName();
 		$this->db();
@@ -75,15 +75,7 @@ class Model extends DbHelper
         return $this->trueTableName;
     }
     private function db() {
-        $config=array(
-            'host'       => DB_HOST,
-            'user'       => DB_USER,
-            'pass'       => DB_PASS,
-            'port'       => DB_PORT,
-            'db'         => DB_NAME,
-            'charset'    => 'utf8',
-        );
-        $this->db = DbHelper::getIntance($config);
+        $this->db = DbHelper::getInstance();
         // return $this->db;
 	}
 	//执行sql语句的方法，返回资源类型

@@ -5,6 +5,10 @@ use app\model\ItemModel;
 use fastphp\helper\ApiHelper;
 class Item extends Controller
 {
+    public function tt(){
+        $model = new ItemModel;
+        echo 123456;
+    }
     public function index()
     {
         $model = new ItemModel;

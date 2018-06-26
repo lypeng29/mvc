@@ -29,4 +29,9 @@ interface CacheInterface
      * @return bool
      */
     public function delete($name);
+
+    /**
+     * 清空缓存
+     */
+    public function clear();
 }

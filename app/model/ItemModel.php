@@ -10,11 +10,11 @@ class ItemModel extends Model
 {
 
     //可以调用$this->select,find,sql,execute,insert,update,delete方法
-    // function __construct(){
-    //     $this->tableName = 'itemb'; // 不包含前缀表名
-    //     // $this->trueTableName = 'dp_itemb'; // 真实表名，如果不指定默认为模型名称
-    //     parent::__construct();//继承父类初始化需要放在最后，否则上面的定义是无效的
-    // }
+    function __construct(){
+        $this->tableName = 'itemb'; // 不包含前缀表名
+        // $this->trueTableName = 'dp_itemb'; // 真实表名，如果不指定默认为模型名称
+        parent::__construct();//继承父类初始化需要放在最后，否则上面的定义是无效的
+    }
 
     public function search($keyword){
         return $this->sql("select * from itemb where `item_name` like '%$keyword%'");

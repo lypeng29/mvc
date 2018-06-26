@@ -3,7 +3,9 @@ namespace app\controller;
 use fastphp\base\Controller;
 use app\model\ItemModel;
 use fastphp\helper\ApiHelper;
-use fastphp\helper\CacheHelper;
+// use fastphp\helper\CacheHelper; //文件缓存
+use fastphp\cache\File;
+use fastphp\cache\Db;
 use fastphp\helper\UploadHelper;
 // use fastphp\helper\MyRedisHelper;
 use PHPMailer\PHPMailer\PHPMailer;
@@ -11,7 +13,7 @@ use PHPMailer\PHPMailer\Exception;
 class Index extends Controller
 {
     function __construct(){
-        $this->cache = new CacheHelper(20,'cache/');
+        // $this->cache = new CacheHelper(20,'cache/');
     }
 
     public function index(){
@@ -22,8 +24,11 @@ class Index extends Controller
     }
 
     public function test(){
-        echo 'test';
-        echo isset($_GET['id']) ? intval($_GET['id']) : 555;
+        // echo 'test';
+        // echo isset($_GET['id']) ? intval($_GET['id']) : 555;
+        $c = new Db();
+        $c->set('user','zifuchuan',60);
+        echo $c->get('user');
     }
 
     public function myredis(){

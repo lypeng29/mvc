@@ -27,6 +27,8 @@ class File implements CacheInterface
 
         $file = $this->getFile($name);
         $data = var_export($data, true);
+        // echo $data;
+        // exit();
         file_put_contents($file, "<?php \n return {$data};");
     }
 
@@ -73,5 +75,14 @@ class File implements CacheInterface
             return unlink($file);
         }
         return false;
+    }
+    /**
+     * 清空缓存
+     * @return bool
+     */
+    public function clear()
+    {
+        deldir(DIR_CACHE . '/')
+        return true;
     }
 }
