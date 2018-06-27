@@ -10,10 +10,10 @@ interface CacheInterface
      * 添加缓存
      * @param $name string 缓存名称
      * @param $value mixed 缓存数据
-     * @param int $expiry 截止时间（时间戳）
+     * @param int $expire 截止时间（时间戳）
      * @return mixed
      */
-    public function set($name, $value, $expiry = 0);
+    public function set($name, $value, $expire = 0);
 
     /**
      * 获取缓存

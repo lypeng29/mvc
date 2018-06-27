@@ -35,7 +35,9 @@ class Db implements CacheInterface
         // N('cache_read',1);
         $result     =  $this->handler->query('SELECT `data` FROM `'.$this->options['table'].'` WHERE `cachekey`=\''.$name.'\' AND (`expire` =0 OR `expire`>'.time().') LIMIT 0,1');
         // $result     =  $this->handler->query('SELECT `data`,`datacrc` FROM `'.$this->options['table'].'` WHERE `cachekey`=\''.$name.'\' AND (`expire` =0 OR `expire`>'.time().') LIMIT 0,1');
-        if(false !== $result ) {
+        // var_dump($result);
+        // exit();
+        if(!empty($result )) {
             $result   =  $result[0];
             // if(C('DATA_CACHE_CHECK')) {//开启数据校验
             //     if($result['datacrc'] != md5($result['data'])) {//校验错误
@@ -43,10 +45,10 @@ class Db implements CacheInterface
             //     }
             // }
             $content   =  $result['data'];
-            // if(C('DATA_CACHE_COMPRESS') && function_exists('gzcompress')) {
-            //     //启用数据压缩
-            //     $content   =   gzuncompress($content);
-            // }
+            if(C('DATA_CACHE_COMPRESS') && function_exists('gzcompress')) {
+                //启用数据压缩
+                $content   =   gzuncompress($content);
+            }
             $content    =   unserialize($content);
             return $content;
         }
@@ -67,10 +69,22 @@ class Db implements CacheInterface
         $data   =  serialize($value);
         $name   =  $this->options['prefix'].addslashes($name);
         // N('cache_write',1);
-        // if( C('DATA_CACHE_COMPRESS') && function_exists('gzcompress')) {
-        //     //数据压缩
-        //     $data   =   gzcompress($data,3);
-        // }
+        if( C('DATA_CACHE_COMPRESS') && function_exists('gzcompress')) {
+            //数据压缩
+            $data   =   gzcompress($data,3);//第二个参数为压缩级别，0-9，默认6
+            // Compression benchmark: 
+            //     level time    size     (%):  
+            //     0: 0.000373 - 82.08 kB (100.02%)  
+            //     1: 0.000914 - 19.61 kB (23.90%)  
+            //     2: 0.000951 - 18.88 kB (23.01%)  
+            //     3: 0.000999 - 18.43 kB (22.46%)  
+            //     4: 0.001498 - 17.65 kB (21.51%)  
+            //     5: 0.001744 - 17.09 kB (20.82%)  
+            //     6: 0.002060 - 16.88 kB (20.57%)  
+            //     7: 0.002233 - 16.85 kB (20.53%)  
+            //     8: 0.002808 - 16.71 kB (20.36%)  
+            //     9: 0.002928 - 16.71 kB (20.36%)  
+        }
         // if(C('DATA_CACHE_CHECK')) {//开启数据校验
         //     $crc  =  md5($data);
         // }else {

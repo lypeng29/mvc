@@ -20,10 +20,12 @@ return array(
 	'MAIL_NAME'		=> '893371810@qq.com',
 	//cache
 	// 'DIR_CACHE'		=>	DIR_ROOT . '/data/cache',
+	'DATA_CACHE_TYPE'	=>	'File',
+	'DATA_CACHE_TIME'	=>	1200,	//缓存有效期，单位秒，0表示永久
+	'DATA_CACHE_PREFIX'	=>	'user_',
 	//db cache
-	'CACHE_TYPE'	=>	'Db',
-	'DATA_CACHE_PREFIX'	=>	'',
 	'DATA_CACHE_TABLE'	=>	'sys_cache',
-	'DATA_CACHE_TIME'	=>	68400
+	'DATA_CACHE_COMPRESS'	=>	true, //是否启用数据压缩
+
 );
 ?>

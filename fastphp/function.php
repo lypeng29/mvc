@@ -2,13 +2,26 @@
     /**
      * 记录日志，方便调试
      * $word可以是字符串，数组等等
-     * 默认文件位置：dist/wwwroot/logs.txt
+     * 默认文件位置：data/logs/YYYYmmdd.txt
      */
-    function logs($word='', $file='logs.txt') {
+    function L($word='', $level='INFO', $file='') {
+        switch ($level) {
+            case 1:
+                $outlevel = 'WARNING';
+                break;
+            case 2:
+                $outlevel = 'ERROR';
+                break;
+            default:
+                $outlevel = $level;
+                break;
+        }
+        if(empty($file)){
+            $file = DIR_ROOT.'/data/logs/'.strftime("%Y%m%d",time()).'.txt';
+        }
         $fp = fopen($file,"a");
         flock($fp, LOCK_EX) ;
-        fwrite($fp, var_export($word.' ', true));
-        fwrite($fp,"执行日期：".strftime("%Y%m%d%H%M%S",time()));
+        fwrite($fp, strftime("%Y-%m-%d %H:%M:%S",time()).' '.$outlevel.': '.var_export($word, true).PHP_EOL);
         flock($fp, LOCK_UN);
         fclose($fp);
     }
@@ -29,21 +42,15 @@
     /**
      * 删除目录下面所有文件，保留目录
      */
-	function deldir($dir)
-	{
+	function deldir($dir){
 		//删除目录下的文件：
 		$dh=opendir($dir);
-		while ($file=readdir($dh)) 
-		{
-			if($file!="." && $file!="..") 
-			{
+		while ($file=readdir($dh)){
+			if($file!="." && $file!="..") {
 				$fullpath=$dir."/".$file;		
-				if(!is_dir($fullpath))
-				{
+				if(!is_dir($fullpath)){
 					unlink($fullpath);
-				} 
-				else
-				{
+				}else{
 					deldir($fullpath);
 				}
 			}
@@ -87,5 +94,19 @@
         }
         return null; // 避免非法参数
     }
-
+    /**
+     * 根据PHP各种类型变量生成唯一标识号
+     * @param mixed $mix 变量
+     * @return string
+     */
+    function to_guid_string($mix) {
+        if (is_object($mix)) {
+            return spl_object_hash($mix);
+        } elseif (is_resource($mix)) {
+            $mix = get_resource_type($mix) . strval($mix);
+        } else {
+            $mix = serialize($mix);
+        }
+        return md5($mix);
+    }
 ?>

@@ -4,12 +4,11 @@ use fastphp\base\Controller;
 use app\model\ItemModel;
 use fastphp\helper\ApiHelper;
 // use fastphp\helper\CacheHelper; //文件缓存
-use fastphp\cache\File;
-use fastphp\cache\Db;
+use fastphp\Cache;
 use fastphp\helper\UploadHelper;
 // use fastphp\helper\MyRedisHelper;
-use PHPMailer\PHPMailer\PHPMailer;
-use PHPMailer\PHPMailer\Exception;
+// use PHPMailer\PHPMailer\PHPMailer;
+// use PHPMailer\PHPMailer\Exception;
 class Index extends Controller
 {
     function __construct(){
@@ -18,17 +17,19 @@ class Index extends Controller
 
     public function index(){
         echo 'hello world!';
-        var_dump($_GET);
-        var_dump($_POST);
-        var_dump($_SERVER);
+        
+        L('nihaoa', 2);
+        L(array('AGE' => 20, 'NAME'=>'HUWEI'), 1);
+        // var_dump($_GET);
+        // var_dump($_POST);
+        // var_dump($_SERVER);
     }
 
-    public function test(){
-        // echo 'test';
-        // echo isset($_GET['id']) ? intval($_GET['id']) : 555;
-        $c = new Db();
-        $c->set('user','zifuchuan',60);
-        echo $c->get('user');
+    public function mycache(){
+        $c = Cache::getInstance();
+        // $c = Cache::getInstance('File',array('prefix'=>'admin_','expire'=>0));
+        $c->set('user4','zifuchuan4');
+        echo "cache user4 is: ".$c->get('user4');
     }
 
     public function myredis(){
@@ -71,11 +72,10 @@ eof;
         echo $html;
     }
 
-    public function mycache(){
-        // $this->cache = new CacheHelper(20,'cache/');
-        // $this->cache->put('nihao','888');
-        $ni = $this->cache->get('nihao');
-        echo $ni;
+    public function mycachehelper(){
+        $this->cache = new CacheHelper(20,'cache/');
+        $this->cache->put('nihao','888');
+        echo $this->cache->get('nihao');
     }
 
     public function sendemail()

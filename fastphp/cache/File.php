@@ -8,20 +8,31 @@ namespace fastphp\cache;
 class File implements CacheInterface
 {
     /**
+     * 架构函数
+     * @param array $options 缓存参数
+     * @access public
+     */
+    public function __construct($options=array()) {
+        $this->options  =   $options;   
+        $this->options['prefix']    =   isset($options['prefix'])?  $options['prefix']  :   C('DATA_CACHE_PREFIX');       
+        $this->options['expire']    =   isset($options['expire'])?  $options['expire']  :   C('DATA_CACHE_TIME');
+    }
+    /**
      * 设置缓存
      * @param $name
      * @param $value
-     * @param int $expiry 有效时间（秒）
+     * @param int $expire 有效时间（秒）
      * @return mixed
      */
-    public function set($name, $value, $expiry = 0)
-    {
-        if ($expiry > 0) {
-            $expiry = time() + $expiry;
+    public function set($name, $value, $expire = NULL)
+    {        
+        if(is_null($expire)) {
+            $expire  =  $this->options['expire'];
         }
+        $expire	    =   ($expire==0)?0: (time()+$expire) ;//缓存有效期为0表示永久缓存
 
         $data = [
-            'expiry' => $expiry,
+            'expire' => $expire,
             'value' => $value
         ];
 
@@ -45,7 +56,7 @@ class File implements CacheInterface
             return $default;
         }
         $data = require "$file";
-        if (!is_array($data) || ($data['expiry'] > 0 && $data['expiry'] < time())) {
+        if (!is_array($data) || ($data['expire'] > 0 && $data['expire'] < time())) {
             $this->delete($name);
             return $default;
         }
@@ -59,7 +70,7 @@ class File implements CacheInterface
      */
     private function getFile($name)
     {
-        $file = DIR_CACHE . "/".md5($name).".php";
+        $file = DIR_CACHE . "/".$this->options['prefix'].addslashes($name).".php";
         return $file;
     }
 
@@ -82,7 +93,7 @@ class File implements CacheInterface
      */
     public function clear()
     {
-        deldir(DIR_CACHE . '/')
+        deldir(DIR_CACHE . '/');
         return true;
     }
 }
