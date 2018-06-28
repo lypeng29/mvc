@@ -18,14 +18,25 @@ return array(
 	'DEFAULT_ACTION'	=> 'index',
 	//mail
 	'MAIL_NAME'		=> '893371810@qq.com',
-	//cache
-	// 'DIR_CACHE'		=>	DIR_ROOT . '/data/cache',
-	'DATA_CACHE_TYPE'	=>	'File',
-	'DATA_CACHE_TIME'	=>	1200,	//缓存有效期，单位秒，0表示永久
-	'DATA_CACHE_PREFIX'	=>	'user_',
-	//db cache
-	'DATA_CACHE_TABLE'	=>	'sys_cache',
-	'DATA_CACHE_COMPRESS'	=>	true, //是否启用数据压缩
+
+    /* 数据缓存设置 */
+    'DATA_CACHE_TIME'       =>  0,      // 数据缓存有效期 0表示永久缓存
+    'DATA_CACHE_COMPRESS'   =>  false,   // 数据缓存是否压缩缓存
+    // 'DATA_CACHE_CHECK'      =>  false,   // 数据缓存是否校验缓存
+    'DATA_CACHE_PREFIX'     =>  '',     // 缓存前缀
+    'DATA_CACHE_TYPE'       =>  'Memcache',  // 数据缓存类型,支持:File|Db|Memcache|Memcached|Redis
+    'DATA_CACHE_PATH'       =>  DIR_ROOT . '/data/cache',// 缓存路径设置 (仅对File方式缓存有效)
+	'DATA_CACHE_TABLE'		=>	'sys_cache', // 缓存数据库表（针对Db缓存）
+	'DATA_CACHE_TIMEOUT'	=>	false,
+
+	// 'REDIS_HOST'	=>	'127.0.0.1',
+	// 'REDIS_PORT'	=>	6379,
+
+	//memcache
+	'MEMCACHE_HOST'	=>	'127.0.0.1',
+	'MEMCACHE_PORT'	=>	11211,
+	// 'MEMCACHED_SERVER'	=>	['127.0.0.1',11211],
+	// 'MEMCACHED_LIB'	=>	'',
 
 );
 ?>

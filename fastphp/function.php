@@ -17,6 +17,9 @@
                 break;
         }
         if(empty($file)){
+            if(!is_dir(DIR_ROOT.'/data/logs/')){
+                mkdir(DIR_ROOT.'/data/logs/',0777);
+            }
             $file = DIR_ROOT.'/data/logs/'.strftime("%Y%m%d",time()).'.txt';
         }
         $fp = fopen($file,"a");

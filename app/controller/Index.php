@@ -18,17 +18,23 @@ class Index extends Controller
     public function index(){
         echo 'hello world!';
         
-        L('nihaoa', 2);
-        L(array('AGE' => 20, 'NAME'=>'HUWEI'), 1);
+        // L('nihaoa', 2);
+        // L(array('AGE' => 20, 'NAME'=>'HUWEI'), 1);
         // var_dump($_GET);
         // var_dump($_POST);
         // var_dump($_SERVER);
+    
+        $mem = new \Memcache;
+        $mem->connect("127.0.0.1", 11211);
+        $mem->set('key', 'This is a test!', 0, 60);
+        $val = $mem->get('key');
+        echo $val;
     }
 
     public function mycache(){
         $c = Cache::getInstance();
         // $c = Cache::getInstance('File',array('prefix'=>'admin_','expire'=>0));
-        $c->set('user4','zifuchuan4');
+        var_dump($c->set('user4','zifuchuan4'));
         echo "cache user4 is: ".$c->get('user4');
     }
 

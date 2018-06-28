@@ -40,7 +40,12 @@ class File implements CacheInterface
         $data = var_export($data, true);
         // echo $data;
         // exit();
-        file_put_contents($file, "<?php \n return {$data};");
+        if(file_put_contents($file, "<?php \n return {$data};")){
+            return true;
+        }else{
+            return false;
+        }
+        
     }
 
     /**
@@ -70,7 +75,10 @@ class File implements CacheInterface
      */
     private function getFile($name)
     {
-        $file = DIR_CACHE . "/".$this->options['prefix'].addslashes($name).".php";
+        if(!is_dir(C('DATA_CACHE_PATH'))){
+            mkdir(C('DATA_CACHE_PATH'),0777);
+        }
+        $file = C('DATA_CACHE_PATH') . "/".$this->options['prefix'].addslashes($name).".php";
         return $file;
     }
 
