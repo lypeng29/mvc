@@ -15,25 +15,22 @@ class Memcache implements CacheInterface {
             exit('not support memcache');
         }
 
-        // $options = array_merge(array (
-        //     // 'host'        =>  C('MEMCACHE_HOST') ? : '127.0.0.1',
-        //     // 'port'        =>  C('MEMCACHE_PORT') ? : 11211,
-        //     // 'timeout'     =>  C('DATA_CACHE_TIMEOUT') ? : false,
-        //     'host'        =>  '127.0.0.1',
-        //     'port'        =>  11211,
-        //     'timeout'     =>  false,
-        //     'persistent'  =>  false,
-        // ),$options);
+        $options = array_merge(array (
+            'host'        =>  C('MEMCACHE_HOST') ? : '127.0.0.1',
+            'port'        =>  C('MEMCACHE_PORT') ? : 11211,
+            'timeout'     =>  C('DATA_CACHE_TIMEOUT') ? : false,
+            'persistent'  =>  false,
+        ),$options);
 
-        // $this->options      =   $options;
-        // $this->options['expire'] =  isset($options['expire'])?  $options['expire']  :   C('DATA_CACHE_TIME');
-        // $this->options['prefix'] =  isset($options['prefix'])?  $options['prefix']  :   C('DATA_CACHE_PREFIX');        
+        $this->options      =   $options;
+        $this->options['expire'] =  isset($options['expire'])?  $options['expire']  :   C('DATA_CACHE_TIME');
+        $this->options['prefix'] =  isset($options['prefix'])?  $options['prefix']  :   C('DATA_CACHE_PREFIX');        
         // $this->options['length'] =  isset($options['length'])?  $options['length']  :   0;        
-        // $func               =   $options['persistent'] ? 'pconnect' : 'connect';
-        $this->handler      =   new Memcache;
-        $this->handler->connect('127.0.0.1',11211);
-        var_dump($this->handler);
-        exit();
+        $func               =   $options['persistent'] ? 'pconnect' : 'connect';
+        $this->handler      =   new \Memcache;
+        // $this->handler->connect('127.0.0.1',11200);
+        // var_dump($this->handler);
+        // exit();
         $options['timeout'] === false ?
             $this->handler->$func($options['host'], $options['port']) :
             $this->handler->$func($options['host'], $options['port'], $options['timeout']);

@@ -35,8 +35,6 @@ return array(
 	//memcache
 	'MEMCACHE_HOST'	=>	'127.0.0.1',
 	'MEMCACHE_PORT'	=>	11211,
-	// 'MEMCACHED_SERVER'	=>	['127.0.0.1',11211],
-	// 'MEMCACHED_LIB'	=>	'',
 
 );
 ?>
