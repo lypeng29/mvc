@@ -26,12 +26,12 @@ class View
     public function render()
     {
         extract($this->variables);
-        $defaultHeader = DIR_ROOT . 'app/view/header.php';
-        $defaultFooter = DIR_ROOT . 'app/view/footer.php';
+        $defaultHeader = DIR_ROOT . '/app/view/header.php';
+        $defaultFooter = DIR_ROOT . '/app/view/footer.php';
 
-        $controllerHeader = DIR_ROOT . 'app/view/' . $this->_controller . '/header.php';
-        $controllerFooter = DIR_ROOT . 'app/view/' . $this->_controller . '/footer.php';
-        $controllerLayout = DIR_ROOT . 'app/view/' . $this->_controller . '/' . $this->_action . '.php';
+        $controllerHeader = DIR_ROOT . '/app/view/' . $this->_controller . '/header.php';
+        $controllerFooter = DIR_ROOT . '/app/view/' . $this->_controller . '/footer.php';
+        $controllerLayout = DIR_ROOT . '/app/view/' . $this->_controller . '/' . $this->_action . '.php';
 
         // 页头文件
         if (is_file($controllerHeader)) {
