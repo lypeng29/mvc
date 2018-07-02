@@ -1,3 +1,5 @@
 uploads
 vendor
+data/cache/*
+data/logs/*
 composer.lock
