@@ -91,7 +91,7 @@ class DbHelper{
 	// model基类里面有自己的query与execute
 
 	//执行SQL，返回结果数组
-	public function query($sql){
+	public function db_query($sql){
 		$query=mysqli_query($this->link,$sql);
 		$list=array();
 		while ($r=mysqli_fetch_assoc($query)) {
@@ -100,7 +100,7 @@ class DbHelper{
 		return $list;
 	}
 	//执行SQL，返回受影响行数
-	public function execute($sql){
+	public function db_execute($sql){
 		mysqli_query($this->link,$sql);
 		return mysqli_affected_rows($this->link);
 	}
