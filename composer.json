@@ -1,6 +1,7 @@
 {
     "require": {
         "jaeger/querylist": "^3.2",
-        "phpmailer/phpmailer": "^6.0.5"
+        "phpmailer/phpmailer": "^6.0.5",
+        "mongodb/mongodb": "^1.4"
     }
 }

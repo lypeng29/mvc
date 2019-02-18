@@ -1,10 +1,21 @@
-<form name="login" action="" method="post">
-账号：<br/>
-<input type="text" name="username" value="123"/><br/><br/>
-密码：<br/>
-<input type="password" name="password" value=""/><br/><br/>
-<input type="button" name="sub" id="sub" value="登录"/>
-</form>
+<!DOCTYPE html>
+<html>
+<head>
+    <title>管理首页</title>
+</head>
+<body>
+    <div>
+    <ul class="topbar">
+        <li><a href="/config/index">配置管理</a></li>
+        <li><a href="/config/index">分类管理</a></li>
+        <li><a href="/config/index">文章管理</a></li>
+    </ul>
+    </div>
+    <div>
+        网站配置
+    </div>
+</body>
+</html>
 <script src="https://www.lypeng.com/static/js/jquery-2.1.3.min.js"></script>
 <script>
 $('#sub').click(function(){
